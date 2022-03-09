@@ -8,31 +8,25 @@ void solve() {
 
     vector<int> cs(n);
     vector<int> h(n);
+    vector<int> b(n + 1, 0);
 
     for (int i = 0; i < n; i++) {
-        cin >> cs[i];
-    }
+        int c;
+        cin >> c;
+        cs[i] = c;
 
-    h[0] = 1;
-    for (int i = 1; i < n; i++) {
-        h[i] = h[i - 1];
+        b[min(n, c)]++;
 
-        if (cs[i] <= h[i - 1])
-            continue;
+        int s = 0;
+        int j = n;
+        for (; j >= 0; j--) {
+            s += b[j];
 
-        int m = 0;
-
-        for (int j = 0; j < i; j++) {
-            if (cs[j] > h[i - 1])
-                m++;
+            if (s >= j)
+                break;
         }
 
-        if (m + 1 > h[i - 1])
-            h[i]++;
-    }
-
-    for (int i = 0; i < n; i++) {
-        cout << " " << h[i];
+        cout << " " << j;
     }
 
     cout << endl;
